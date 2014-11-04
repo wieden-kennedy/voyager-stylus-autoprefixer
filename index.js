@@ -1,13 +1,27 @@
-var csso = require('gulp-csso')
+var autoprefixer = require('gulp-autoprefixer')
+  , csso = require('gulp-csso')
   , plumber = require('gulp-plumber')
   , stylus = require('gulp-stylus');
 
 module.exports = function (voyager) {
 
+  var AUTOPREFIXER_BROWSERS = [
+    'ie >= 9'
+  , 'ie_mob >= 9'
+  , 'ff >= 30'
+  , 'chrome >= 34'
+  , 'safari >= 7'
+  , 'opera >= 23'
+  , 'ios >= 7'
+  , 'android >= 4.1'
+  , 'bb >= 10'
+  ];
+
   voyager.task('write', 'styles', function (done) {
     this.src('stylesheets/main.styl')
       .pipe(plumber())
       .pipe(stylus({ errors: true }))
+      .pipe(autoprefixer(AUTOPREFIXER_BROWSERS, { cascade: true }))
       .pipe(this.out('stylesheets'))
       .on('end', done);
   });

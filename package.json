@@ -1,6 +1,6 @@
 {
   "name": "voyager-stylus-autoprefixer",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Stylus task with autoprefixer for voyager",
   "keywords": [
     "voyager", "stylus", "csso", "autoprefixer", "task"
