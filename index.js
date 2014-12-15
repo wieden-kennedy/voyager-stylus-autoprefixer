@@ -1,5 +1,7 @@
 var autoprefixer = require('gulp-autoprefixer')
   , csso = require('gulp-csso')
+  , fs = require('fs')
+  , path = require('path')
   , plumber = require('gulp-plumber')
   , stylus = require('gulp-stylus');
 
@@ -16,6 +18,13 @@ module.exports = function (voyager) {
   , 'android >= 4.1'
   , 'bb >= 10'
   ];
+
+  if (fs.existsSync(path.join(voyager.CWD, 'package.json'))) {
+    var pkg = JSON.parse(fs.readFileSync(path.join(voyager.CWD, 'package.json')));
+    if (pkg.autoprefixer) {
+      AUTOPREFIXER_BROWSERS = pkg.autoprefixer;
+    }
+  }
 
   voyager.task('write', 'styles', function (done) {
     this.src('stylesheets/main.styl')
